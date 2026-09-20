@@ -1,0 +1,107 @@
+// Prisma schema for Mobile Repair Management System
+// Target: PostgreSQL database (both local and cloud/Vercel)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+  TECHNICIAN
+}
+
+enum RepairStatus {
+  PENDING
+  IN_PROCESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  role          Role     @default(USER)
+  active        Boolean  @default(true)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  // Relations
+  repairs_created   Repair[]        @relation("RepairsCreated")
+  repairs_assigned  Repair[]        @relation("RepairsAssigned")
+  repairs_completed Repair[]        @relation("RepairsCompleted")
+  history_entries   RepairHistory[]
+
+  @@map("users")
+}
+
+model Repair {
+  id              String       @id @default(cuid())
+  repair_id       String       @unique
+  serial_number   String
+  mobile_name     String
+  problem         String       @db.Text
+  repair_date     DateTime     @default(now())
+  additional_id   String?
+  status          RepairStatus @default(PENDING)
+  
+  assigned_to_id  String?
+  assigned_to     User?        @relation("RepairsAssigned", fields: [assigned_to_id], references: [id], onDelete: SetNull)
+  
+  completed_by_id String?
+  completed_by    User?        @relation("RepairsCompleted", fields: [completed_by_id], references: [id], onDelete: SetNull)
+  completion_date DateTime?
+  
+  notes           String?      @db.Text
+  
+  created_by_id   String
+  created_by      User         @relation("RepairsCreated", fields: [created_by_id], references: [id], onDelete: Restrict)
+  
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+
+  // Relations
+  history         RepairHistory[]
+
+  @@index([serial_number])
+  @@index([repair_id])
+  @@index([additional_id])
+  @@index([status])
+  @@index([repair_date])
+  @@index([created_at])
+  @@map("repairs")
+}
+
+model RepairHistory {
+  id         String        @id @default(cuid())
+  repair_id  String
+  repair     Repair        @relation(fields: [repair_id], references: [id], onDelete: Cascade)
+  
+  old_status RepairStatus?
+  new_status RepairStatus
+  
+  changed_by_id String
+  changed_by    User       @relation(fields: [changed_by_id], references: [id], onDelete: Restrict)
+  
+  changed_at    DateTime   @default(now())
+  notes         String?    @db.Text
+
+  @@index([repair_id])
+  @@index([changed_at])
+  @@map("repair_history")
+}
+
+model RepairSequence {
+  year       Int      @id
+  last_value Int      @default(0)
+  updated_at DateTime @updatedAt
+
+  @@map("repair_sequences")
+}
