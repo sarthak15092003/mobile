@@ -72,6 +72,7 @@ export default function RepairDetailsPage({
   const [newStatus, setNewStatus] = useState('');
   const [statusNotes, setStatusNotes] = useState('');
   const [completedById, setCompletedById] = useState('');
+  const [statusModalError, setStatusModalError] = useState('');
   const [updatingStatus, setUpdatingStatus] = useState(false);
 
   // Edit modal state
@@ -132,6 +133,7 @@ export default function RepairDetailsPage({
   const handleStatusUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     setUpdatingStatus(true);
+    setStatusModalError('');
     try {
       const res = await fetch(`/api/repairs/${resolvedParams.id}/status`, {
         method: 'PATCH',
@@ -143,16 +145,18 @@ export default function RepairDetailsPage({
         }),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         setStatusModalOpen(false);
         setStatusNotes('');
+        setStatusModalError('');
         await loadRepairDetails();
       } else {
-        const err = await res.json();
-        alert(err.error || 'Failed to update status');
+        setStatusModalError(data.error || 'Failed to update status');
       }
     } catch {
-      alert('Error updating status');
+      setStatusModalError('Error updating status. Please try again.');
     } finally {
       setUpdatingStatus(false);
     }
@@ -444,6 +448,11 @@ export default function RepairDetailsPage({
         maxWidth="md"
       >
         <form onSubmit={handleStatusUpdate} className="space-y-4">
+          {statusModalError && (
+            <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700 dark:border-rose-900/50 dark:bg-rose-950/40 dark:text-rose-400">
+              {statusModalError}
+            </div>
+          )}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               New Status

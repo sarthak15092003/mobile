@@ -1,0 +1,49 @@
+========================================================================
+             FIXFLOW PRO - MOBILE REPAIR MANAGEMENT
+                     SYSTEM USER LOGIN CREDENTIALS
+========================================================================
+
+Live Production URL:
+https://mobile-gamma-two.vercel.app/
+
+Local Development URL:
+http://localhost:3000/
+
+------------------------------------------------------------------------
+1. ADMINISTRATOR (Full Access & Management)
+------------------------------------------------------------------------
+Email:        admin@mobilerepair.com
+Password:     admin123
+Role:         ADMIN
+Permissions:  • Full dashboard statistics & analytics
+              • Inward new mobile repair jobs (REP-YYYY-XXXXX)
+              • Manage repairs & update statuses
+              • User Management (Create, Edit, Activate/Deactivate users)
+              • Generate & Export reports (Excel/CSV)
+              • View complete audit trail timelines
+
+------------------------------------------------------------------------
+2. TECHNICIAN (Workshop & Status Workflow)
+------------------------------------------------------------------------
+Email:        tech@mobilerepair.com
+Password:     tech123
+Role:         TECHNICIAN
+Permissions:  • View assigned and open repair jobs
+              • Update repair statuses (Pending -> In Process -> Completed)
+              • Add technician notes and diagnostic summaries
+              • Deep search by Serial Number, IMEI, or Repair ID
+
+------------------------------------------------------------------------
+3. SERVICE DESK (Front Desk & Customer Support)
+------------------------------------------------------------------------
+Email:        user@mobilerepair.com
+Password:     user123
+Role:         USER
+Permissions:  • Inward new repairs with instant Copy ID
+              • Search past customer repairs & verify status
+              • View repair details and repair histories
+
+========================================================================
+Database: Neon Cloud PostgreSQL (Direct persistence)
+Generated on: 2026-09-20
+========================================================================

@@ -23,13 +23,7 @@ export async function PATCH(req: NextRequest, { params }: RouteContext) {
       return NextResponse.json({ error: 'Repair record not found.' }, { status: 404 });
     }
 
-    // Role check: Technicians can only update repairs assigned to them
-    if (auth.user.role === Role.TECHNICIAN && existing.assigned_to_id !== auth.user.userId) {
-      return NextResponse.json(
-        { error: 'Technicians can only update status of repairs assigned to them.' },
-        { status: 403 }
-      );
-    }
+    // Allow authenticated staff (Admin, Technician, User) to advance repair workflow
 
     const body = await req.json();
     const { status, notes, completed_by_id } = body;
