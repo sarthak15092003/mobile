@@ -1,17 +1,20 @@
-========================================================================
-             FIXFLOW PRO - MOBILE REPAIR MANAGEMENT
-                     SYSTEM USER LOGIN CREDENTIALS
-========================================================================
+================================================================================
+             FIXFLOW PRO - MOBILE REPAIR MANAGEMENT SYSTEM
+                     USER LOGINS & SYSTEM WORKFLOW GUIDE
+================================================================================
 
-Live Production URL:
-https://mobile-gamma-two.vercel.app/
+Live Production URL:  https://mobile-gamma-two.vercel.app/
+Local URL:            http://localhost:3000/
+Database:             Neon Cloud PostgreSQL (Direct persistence)
+Generated on:         2026-09-20
 
-Local Development URL:
-http://localhost:3000/
+================================================================================
+1. DEFAULT USER LOGIN CREDENTIALS
+================================================================================
 
-------------------------------------------------------------------------
-1. ADMINISTRATOR (Full Access & Management)
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+A. ADMINISTRATOR (Full Access & Management)
+--------------------------------------------------------------------------------
 Email:        admin@mobilerepair.com
 Password:     admin123
 Role:         ADMIN
@@ -22,20 +25,21 @@ Permissions:  - Full dashboard statistics & analytics
               - Generate & Export reports (Excel/CSV)
               - View complete audit trail timelines
 
-------------------------------------------------------------------------
-2. TECHNICIAN (Workshop & Status Workflow)
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+B. TECHNICIAN (Workshop & Status Workflow)
+--------------------------------------------------------------------------------
 Email:        tech@mobilerepair.com
 Password:     tech123
 Role:         TECHNICIAN
 Permissions:  - View assigned and open repair jobs
               - Update repair statuses (Pending -> In Process -> Completed)
               - Add technician notes and diagnostic summaries
+              - Full attribution: Technician's name stamped on every update
               - Deep search by Serial Number, IMEI, or Repair ID
 
-------------------------------------------------------------------------
-3. SERVICE DESK (Front Desk & Customer Support)
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+C. SERVICE DESK (Front Desk & Customer Support)
+--------------------------------------------------------------------------------
 Email:        user@mobilerepair.com
 Password:     user123
 Role:         USER
@@ -43,7 +47,62 @@ Permissions:  - Inward new repairs with instant Copy ID
               - Search past customer repairs & verify status
               - View repair details and repair histories
 
-========================================================================
-Database: Neon Cloud PostgreSQL (Direct persistence)
-Generated on: 2026-09-20
-========================================================================
+================================================================================
+2. HOW THE ADMINISTRATOR CREATES NEW USERS & TECHNICIANS
+================================================================================
+
+1. Sign in with the Admin account (admin@mobilerepair.com / admin123).
+2. Click "Users" in the left navigation sidebar (URL: /users).
+3. Click the blue "+ Add New User" button in the top-right corner.
+4. Enter the employee's details:
+   - Full Name (e.g. "John Doe")
+   - Email (e.g. "john@mobilerepair.com")
+   - Password (use the Eye Icon to preview/check password)
+   - Role: Select ADMIN, TECHNICIAN, or USER (Service Desk)
+5. Click "Create User". The account is immediately created and ready to log in.
+
+* Note: Admins can also reset passwords (Key icon) or deactivate accounts anytime.
+
+================================================================================
+3. COMPLETE SYSTEM USAGE WORKFLOW (STEP-BY-STEP)
+================================================================================
+
+STEP 1: INWARDING A DAMAGED PHONE (Front Desk / User)
+----------------------------------------------------
+1. Log in and navigate to "New Repair" (or click "+ New Repair" button).
+2. Enter the device details:
+   - Serial Number / IMEI (e.g. "SN123456")
+   - Mobile Model (e.g. "iPhone 15 Pro")
+   - Problem Description (e.g. "Screen flickering after drop")
+   - Date, Additional reference ID, and any special notes
+   - Assign to a technician or leave unassigned
+3. Click "Submit Repair Ticket".
+4. The system automatically creates a sequential ID (e.g., REP-2026-00005).
+5. Click "Copy ID" on the confirmation popup to paste it on customer receipts.
+
+STEP 2: CHECKING REPAIR HISTORY (Search)
+----------------------------------------
+1. Click "Search Repair" in the sidebar.
+2. Enter the phone's Serial Number or Repair ID.
+3. If the phone has been repaired before in the past, all historical repair
+   tickets are displayed in chronological order (newest first).
+
+STEP 3: WORKSHOP REPAIRS & STATUS UPDATES (Technician)
+-----------------------------------------------------
+1. Technician logs in and opens the repair ticket from "All Repairs".
+2. Click "Update Status".
+3. Change status from "Pending" -> "In Process" -> "Completed".
+4. Add technician diagnostic notes (e.g. "OLED screen replaced, tested OK").
+5. Click "Apply Status Change". The popup updates and closes automatically.
+6. The audit trail records:
+   - Exact status change
+   - Timestamp
+   - "By: [Technician Name] (TECHNICIAN)"
+   - Diagnostic notes
+
+STEP 4: REPORTS & ANALYTICS (Admin)
+-----------------------------------
+1. Go to "Reports" in the sidebar.
+2. Filter by date range, status, or specific technician.
+3. Click "Export CSV" or "Export Excel (.xlsx)" to download reports.
+================================================================================

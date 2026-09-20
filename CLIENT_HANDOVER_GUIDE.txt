@@ -1,0 +1,201 @@
+================================================================================
+             FIXFLOW PRO - MOBILE REPAIR MANAGEMENT SYSTEM
+                     CLIENT HANDOVER & USER GUIDE
+================================================================================
+
+PROJECT:       FixFlow Pro - Cloud Mobile Repair Management Suite
+DATABASE:      Neon Cloud PostgreSQL (Persistent, Multi-User, Live)
+LIVE URL:      https://mobile-gamma-two.vercel.app/
+LOCAL URL:     http://localhost:3000/
+GENERATED ON:  2026-09-20
+
+================================================================================
+TABLE OF CONTENTS
+================================================================================
+1. Default Login Credentials & Team Roles
+2. How the Admin Creates New Team Members (Users & Technicians)
+3. Complete Step-by-Step System Workflow:
+   - Step 3.1: Front Desk Ticket Intake & Sequential Repair ID Generation
+   - Step 3.2: Searching Existing Devices by Serial Number / IMEI
+   - Step 3.3: Technician Workflow (Status Updates, Notes & Attribution)
+   - Step 3.4: Administrator Overview, User Management & Report Exports
+4. Security, Concurrency & Database Guarantees
+
+================================================================================
+1. DEFAULT SYSTEM LOGIN CREDENTIALS
+================================================================================
+
+Use any of the following accounts to sign in immediately:
+
+--------------------------------------------------------------------------------
+A. ADMINISTRATOR (Amit - Full System Control)
+--------------------------------------------------------------------------------
+Email:         admin@mobilerepair.com
+Password:      admin123
+Role:          ADMIN
+Privileges:    • Access to all dashboard analytics and live repair KPIs
+               • Create, edit, and manage all repair records
+               • User Management: create, edit, activate/deactivate team accounts
+               • Reset employee passwords at any time
+               • Generate and export Excel (.xlsx) and CSV reports
+               • View complete audit trail timelines for every device
+
+--------------------------------------------------------------------------------
+B. TECHNICIAN (Rahul - Workshop & Repair Execution)
+--------------------------------------------------------------------------------
+Email:         tech@mobilerepair.com
+Password:      tech123
+Role:          TECHNICIAN
+Privileges:    • View open and assigned mobile repair work orders
+               • Advance repair statuses: Pending -> In Process -> Completed
+               • Log diagnostic notes, part replacements, and repair summaries
+               • Full attribution: The technician's own name is stamped on
+                 every timeline status update and in "Completed By"
+               • Search devices by Serial Number, IMEI, or Repair ID
+
+--------------------------------------------------------------------------------
+C. SERVICE DESK (Tanishq - Customer Intake & Front Desk)
+--------------------------------------------------------------------------------
+Email:         user@mobilerepair.com
+Password:      user123
+Role:          USER
+Privileges:    • Inward customer phones with immediate sequential ID generation
+               • 1-Click "Copy ID" button to share Repair ID with customer
+               • Search past repairs to check device service history
+               • View ticket details and print-friendly repair logs
+
+================================================================================
+2. HOW THE ADMINISTRATOR CREATES NEW TEAM MEMBERS
+================================================================================
+
+Only Administrators have permission to add new users to the system:
+
+Step 1: Sign in using the Admin account:
+        Email:    admin@mobilerepair.com
+        Password: admin123
+
+Step 2: In the left navigation menu, click on "Users" (URL: /users).
+        (Note: The "Users" menu item is hidden from Technicians and Service Desk
+        users for security).
+
+Step 3: Click the blue "+ Add New User" button in the top-right corner.
+
+Step 4: In the popup modal, fill in:
+        • Full Name:           e.g., "Vikram Sharma"
+        • Email Address:       e.g., "vikram@mobilerepair.com"
+        • Password:            Set a secure password (click the Eye Icon 👁 to
+                               view/verify the password)
+        • Role Dropdown:
+          - "ADMIN"       -> Full administrative and user management access
+          - "TECHNICIAN"  -> Workshop repair handling, notes, and status updates
+          - "USER"        -> Front desk customer intake and search
+        • Account Status:      Active (Default)
+
+Step 5: Click "Create User". The user is saved directly to the cloud PostgreSQL
+        database and can log in immediately from any phone, tablet, or PC.
+
+* Bonus Admin Tools on the Users Page:
+  - Reset Password: Click the Key Icon (🔑) next to any user to reset their password.
+  - Deactivate/Reactivate: Click the Status Badge to toggle an employee's access.
+  - Edit Role / Name: Click the Edit Pencil Icon (✏️) to modify employee details.
+
+================================================================================
+3. COMPLETE STEP-BY-STEP SYSTEM WORKFLOW
+================================================================================
+
+Below is the standard day-to-day workflow for a mobile repair shop:
+
+--------------------------------------------------------------------------------
+STEP 3.1: CUSTOMER INTAKE & TICKET CREATION (Front Desk / Admin)
+--------------------------------------------------------------------------------
+1. Customer walks into the shop or submits a damaged device.
+2. Front desk staff logs in and clicks "+ New Repair" in the sidebar or header.
+3. Fill in the required intake details:
+   - Serial Number / IMEI: e.g., "SN123456" (Note: Can be entered even if the
+     same phone was repaired months ago; the system tracks all occurrences).
+   - Mobile Model: e.g., "iPhone 15 Pro" or "Samsung Galaxy S24".
+   - Reported Problem: e.g., "Cracked OLED display and touch unresponsive".
+   - Repair Date: Defaults to today's date.
+   - Additional ID (Optional): e.g., Job sheet number or Customer Phone Number.
+   - Assigned Technician: Assign to a technician immediately or leave unassigned.
+   - Initial Status: Pending (Default).
+   - Notes (Optional): Any physical scratches or accessories kept with device.
+4. Click "Submit Repair Ticket".
+5. The system performs an atomic database transaction and generates a unique,
+   guaranteed sequential Repair ID:
+   Format: REP-YYYY-XXXXX (e.g., REP-2026-00005).
+6. A success dialog appears showing the Repair ID. Click "Copy ID" to paste it
+   onto the physical job sheet, SMS, or customer receipt.
+
+--------------------------------------------------------------------------------
+STEP 3.2: SEARCHING DEVICE HISTORY & VERIFYING STATUS
+--------------------------------------------------------------------------------
+1. At any time, staff can click "Search Repair" in the navigation menu.
+2. Type any of the following into the search bar:
+   - Serial Number / IMEI (e.g., "SN123456")
+   - Repair ID (e.g., "REP-2026-00001")
+   - Device Model (e.g., "iPhone")
+   - Additional Reference ID
+3. If a serial number has visited the repair shop multiple times over the years,
+   all previous repair records appear in chronological order (newest first).
+4. Click "Open Ticket & Audit Trail" on any card to view full details.
+
+--------------------------------------------------------------------------------
+STEP 3.3: TECHNICIAN WORKFLOW & AUDIT ATTRIBUTION
+--------------------------------------------------------------------------------
+1. The technician logs in (e.g., tech@mobilerepair.com).
+2. The technician opens "All Repairs" or finds their assigned ticket.
+3. On the Repair Details page, the technician clicks "Update Status".
+4. Workflow Progression:
+   - From "PENDING" -> Select "IN_PROCESS":
+     Technician types notes: "Device disassembled, replacement screen ordered."
+     Click "Apply Status Change". The popup closes immediately.
+   - From "IN_PROCESS" -> Select "COMPLETED":
+     Technician selects who completed it (or leaves default to credit themselves).
+     Technician types notes: "New display installed and tested. Touch calibrated."
+     Click "Apply Status Change".
+5. What happens automatically:
+   - The permanent "Repair History & Audit Trail" timeline on the right logs:
+     • Old Status -> New Status
+     • By: [Technician Name] (TECHNICIAN)
+     • Date & Time stamp
+     • Diagnostic notes
+   - If marked "COMPLETED", the main card stamps "Completed By & Date" with the
+     technician's name and today's date.
+
+--------------------------------------------------------------------------------
+STEP 3.4: MANAGEMENT OVERVIEW & REPORT EXPORTS (Admin / User)
+--------------------------------------------------------------------------------
+1. Click "Dashboard" to view real-time KPIs:
+   - Total Repairs, Pending, In Process, Completed, and Cancelled.
+2. Click "Reports" to view service analytics:
+   - Filter by Date Range (Date From / Date To).
+   - Filter by Specific Status (e.g., show only Completed).
+   - Filter by Assigned Technician (view individual technician productivity).
+   - View visual Status Distribution and Technician Workload charts.
+3. Export Data:
+   - Click "Export CSV" for standard spreadsheet processing.
+   - Click "Export Excel (.xlsx)" for structured, formatted Excel workbooks.
+
+================================================================================
+4. ARCHITECTURE & SECURITY GUARANTEES
+================================================================================
+• Live Cloud PostgreSQL Database:
+  Hosted on Neon Serverless PostgreSQL with direct pooled connections. No data
+  is lost upon server reboots or cache clears.
+• Atomic Repair ID Sequencing:
+  Uses database row-locking transactions (`SELECT ... FOR UPDATE`) so that two
+  technicians creating repairs at the exact same second will never get duplicate IDs.
+• Role-Based JWT Cookie Security:
+  Passwords are encrypted using bcrypt (10 rounds). Sessions use encrypted JWTs.
+• 100% Responsive Design:
+  Works seamlessly across mobile phones (smartphones with touch scrolling),
+  tablets, iPads, laptops, and desktop workshop terminals.
+
+================================================================================
+SUPPORT & QUICK LINKS
+================================================================================
+Live Web App:     https://mobile-gamma-two.vercel.app/
+GitHub Repo:      https://github.com/sarthak15092003/mobile.git
+Status:           Production Ready & Verified
+================================================================================
