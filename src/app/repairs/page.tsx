@@ -122,7 +122,7 @@ export default function AllRepairsPage() {
         </div>
         <Link
           href="/repairs/new"
-          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-all cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-all cursor-pointer w-full sm:w-auto"
         >
           <PlusCircle className="h-4 w-4" />
           <span>New Repair</span>
@@ -208,7 +208,7 @@ export default function AllRepairsPage() {
       {/* Main Table */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[840px]">
             <thead className="border-b border-slate-100 bg-slate-50/75 text-slate-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400">
               <tr>
                 <th className="px-6 py-3.5 font-semibold">Repair ID</th>
@@ -285,7 +285,7 @@ export default function AllRepairsPage() {
         </div>
 
         {/* Server-Side Pagination Bar */}
-        <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 px-6 py-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800 px-4 py-3.5 sm:px-6 sm:py-4">
           <div className="text-xs text-slate-500">
             Showing <span className="font-semibold text-slate-900 dark:text-white">{repairs.length}</span> of{' '}
             <span className="font-semibold text-slate-900 dark:text-white">{pagination.total}</span> total repairs

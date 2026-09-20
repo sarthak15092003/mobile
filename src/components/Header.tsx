@@ -37,6 +37,15 @@ export default function Header({ onMenuToggle, user }: HeaderProps) {
           <Menu className="h-5 w-5" />
         </button>
 
+        {/* Mobile Search Button */}
+        <Link
+          href="/search"
+          className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 sm:hidden dark:text-slate-400 dark:hover:bg-slate-900"
+          aria-label="Search repairs"
+        >
+          <Search className="h-5 w-5" />
+        </Link>
+
         {/* Global Quick Search */}
         <form onSubmit={handleSearchSubmit} className="relative hidden sm:block w-72 md:w-96">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />

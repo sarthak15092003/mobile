@@ -235,7 +235,7 @@ export default function UserManagementPage() {
         </div>
         <button
           onClick={() => setCreateModalOpen(true)}
-          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-all cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-all cursor-pointer w-full sm:w-auto"
         >
           <PlusCircle className="h-4 w-4" />
           <span>Add New User</span>
@@ -245,7 +245,7 @@ export default function UserManagementPage() {
       {/* Users Table */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[760px]">
             <thead className="border-b border-slate-100 bg-slate-50/75 text-slate-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400">
               <tr>
                 <th className="px-6 py-3.5 font-semibold">User Name</th>

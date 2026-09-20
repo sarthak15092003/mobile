@@ -238,7 +238,7 @@ function SearchContent() {
                     {r.problem}
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 text-xs">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 text-xs">
                     <span className="text-slate-400">
                       Logged by {r.created_by.name} on {new Date(r.created_at).toLocaleDateString()}
                     </span>

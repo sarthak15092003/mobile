@@ -189,14 +189,17 @@ export default function DashboardPage() {
       </div>
 
       {/* 5 Metric Summary Cards */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {statCards.map((card) => {
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {statCards.map((card, index) => {
           const Icon = card.icon;
+          const isLastOnMobile = index === statCards.length - 1;
           return (
             <Link
               key={card.title}
               href={card.link}
-              className={`flex flex-col justify-between rounded-2xl border ${card.border} ${card.bg} p-5 transition-all hover:scale-[1.02] hover:shadow-md`}
+              className={`flex flex-col justify-between rounded-2xl border ${card.border} ${card.bg} p-4 sm:p-5 transition-all hover:scale-[1.02] hover:shadow-md ${
+                isLastOnMobile ? 'col-span-2 sm:col-span-1' : ''
+              }`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
@@ -205,7 +208,7 @@ export default function DashboardPage() {
                 <Icon className={`h-5 w-5 ${card.color}`} />
               </div>
               <div className="mt-4">
-                <span className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                   {card.count}
                 </span>
               </div>
@@ -215,10 +218,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Main Grid: Recent Repairs Table & Recently Completed Feed */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Recent Repairs Table (2 Cols) */}
         <div className="lg:col-span-2 rounded-2xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
-          <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
+          <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3.5 sm:px-6 sm:py-4 dark:border-slate-800">
             <div>
               <h2 className="text-sm font-bold text-slate-900 dark:text-white">
                 Recent Repairs
@@ -237,7 +240,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs min-w-[620px]">
               <thead className="border-b border-slate-100 bg-slate-50/75 text-slate-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400">
                 <tr>
                   <th className="px-6 py-3 font-semibold">Repair ID</th>

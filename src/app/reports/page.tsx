@@ -120,18 +120,18 @@ export default function ReportsPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 w-full sm:w-auto">
           <button
             onClick={() => handleExport('csv')}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 shadow-xs transition-colors cursor-pointer"
+            className="inline-flex flex-1 sm:flex-initial items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
-            <FileText className="h-4 w-4 text-blue-600" />
+            <Download className="h-4 w-4 text-slate-500" />
             <span>Export CSV</span>
           </button>
 
           <button
             onClick={() => handleExport('xlsx')}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-emerald-500/20 hover:bg-emerald-700 transition-all cursor-pointer"
+            className="inline-flex flex-1 sm:flex-initial items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-emerald-500/20 hover:bg-emerald-700 transition-all cursor-pointer"
           >
             <FileSpreadsheet className="h-4 w-4" />
             <span>Export Excel (.xlsx)</span>
@@ -262,7 +262,7 @@ export default function ReportsPage() {
               </span>
             </div>
 
-            <div className="rounded-2xl border border-rose-200 bg-rose-50/50 p-5 dark:border-rose-900/50 dark:bg-rose-950/30">
+            <div className="col-span-2 sm:col-span-1 rounded-2xl border border-rose-200 bg-rose-50/50 p-5 dark:border-rose-900/50 dark:bg-rose-950/30">
               <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">
                 Cancelled
               </span>

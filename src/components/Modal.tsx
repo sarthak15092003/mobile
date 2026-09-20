@@ -41,7 +41,7 @@ export default function Modal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
       <div
         className="fixed inset-0"
         onClick={onClose}
@@ -52,8 +52,8 @@ export default function Modal({
         aria-modal="true"
         className={`relative z-10 w-full ${maxWidthClasses[maxWidth]} overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl transition-all`}
       >
-        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4">
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-4 py-3.5 sm:px-6 sm:py-4">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">
             {title}
           </h3>
           <button
@@ -63,7 +63,7 @@ export default function Modal({
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="px-6 py-5 max-h-[calc(100vh-12rem)] overflow-y-auto">
+        <div className="px-4 py-4 sm:px-6 sm:py-5 max-h-[calc(100vh-5rem)] sm:max-h-[calc(100vh-10rem)] overflow-y-auto">
           {children}
         </div>
       </div>
