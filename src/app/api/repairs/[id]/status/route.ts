@@ -49,8 +49,8 @@ export async function PATCH(req: NextRequest, { params }: RouteContext) {
       };
 
       if (newStatus === RepairStatus.COMPLETED) {
-        // If completed_by_id was passed, use that; otherwise default to the current user or assigned tech
-        updateData.completed_by_id = completed_by_id || existing.assigned_to_id || auth.user.userId;
+        // If completed_by_id was passed, use that; otherwise credit the logged in user/technician
+        updateData.completed_by_id = completed_by_id || auth.user.userId || existing.assigned_to_id;
         updateData.completion_date = new Date();
       } else if (oldStatus === RepairStatus.COMPLETED) {
         // Reopened / moved out of completed
